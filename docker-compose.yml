@@ -1,0 +1,19 @@
+version: '3'
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.pgsql
+    container_name: study-infra-postgresql
+    volumes:
+      - db:/var/lib/postgresql/data
+    ports:
+      - '25432:5432'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'    # 1.0から0.25に変更（4分の1）
+          memory: 256M    # 2Gから256Mに変更
+volumes:
+  db:
+    driver: local
